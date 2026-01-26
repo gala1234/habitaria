@@ -26,27 +26,27 @@ const items = [
 
 export default function Technology() {
   return (
-    <section id="technology" className="bg-offwhite">
+    <section id="technology" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-20">
         <FadeIn>
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-coffee md:text-4xl">
             The SISMO Building System
           </h2>
-          <p className="mt-4 max-w-2xl text-zinc-700">
+          <p className="mt-4 max-w-2xl text-coffee/80">
             Insulating concrete forms engineered for performance, comfort, and precision.
           </p>
         </FadeIn>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
           {items.map(({ icon: Icon, title, desc }) => (
-            <FadeIn key={title} className="rounded-xl border border-zinc-200 bg-white p-6">
+            <FadeIn key={title} className="rounded-[2px] border border-zinc-200 bg-white p-6">
               <div className="flex items-start gap-4">
-                <div className="rounded-md bg-gold/10 p-3 text-gold">
+                <div className="rounded-[2px] bg-tangerine/10 p-3 text-tangerine">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-zinc-900">{title}</h3>
-                  <p className="mt-1 text-zinc-600">{desc}</p>
+                  <h3 className="text-lg font-medium text-coffee">{title}</h3>
+                  <p className="mt-1 text-coffee/80">{desc}</p>
                 </div>
               </div>
             </FadeIn>
