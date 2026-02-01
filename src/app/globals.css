@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fuentes */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
 
-  /* Colores de Marca Habitaria */
   --color-habitaria-orange-400: #fb923c;
   --color-habitaria-orange-500: #f97316;
   --color-habitaria-orange-600: #ea580c;
@@ -14,30 +12,47 @@
   --color-habitaria-purple-600: #9333ea;
 }
 
-/* Capa de componentes para tus clases personalizadas */
-@utility nav-link {
-  @apply transition-colors duration-150 hover:text-habitaria-orange-500 dark:hover:text-white;
+@layer base {
+  html { @apply scroll-smooth; }
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased transition-colors duration-500
+           dark:bg-[#050505] dark:text-white;
+  }
 }
 
+/* Nota: Hemos eliminado 'group' del @apply porque v4 lo gestiona como un selector especial */
 @utility btn-primary {
-  @apply flex items-center gap-2 px-8 py-4 font-bold uppercase tracking-wider transition-all rounded-sm shadow-xl 
+  @apply flex items-center gap-2 px-8 py-4 font-bold uppercase tracking-wider transition-all rounded-sm shadow-xl
          bg-gray-900 text-white hover:bg-habitaria-orange-600
          dark:bg-white dark:text-black dark:hover:bg-gray-200;
 }
 
+@utility btn-secondary {
+  @apply px-8 py-4 border border-gray-900 backdrop-blur-sm font-bold uppercase tracking-wider transition-all shadow-lg rounded-sm
+         text-gray-900 hover:bg-gray-100
+         dark:border-white/30 dark:text-white dark:hover:bg-white/10;
+}
+
 @utility text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r 
+         from-habitaria-orange-400 via-habitaria-pink-500 to-habitaria-purple-500;
 }
 
 @utility card-modular {
-  @apply overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl transition-colors
+  @apply overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl transition-all
          lg:grid lg:grid-cols-2
          dark:border-white/5 dark:bg-[#0a0a0a];
 }
 
-/* Base de la App */
-@layer base {
-  body {
-    @apply bg-white text-gray-900 dark:bg-[#050505] dark:text-white transition-colors duration-500;
-  }
+@utility tab-button-active {
+  @apply bg-gray-900 text-white shadow-lg dark:bg-white dark:text-black;
+}
+
+@utility tab-button-inactive {
+  @apply text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
+}
+
+@utility nav-link {
+  @apply text-sm font-semibold tracking-widest uppercase transition-colors duration-300 
+         hover:text-habitaria-orange-500 dark:hover:text-white;
 }
