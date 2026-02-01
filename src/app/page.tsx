@@ -31,39 +31,39 @@ const HabitariaLanding: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-orange-500 selection:text-white overflow-x-hidden transition-colors duration-500">
+    <div className="min-h-screen selection:bg-orange-500 selection:text-white overflow-x-hidden">
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      <header className="relative min-h-screen pt-40 md:pt-60 pb-20 flex items-center justify-center overflow-hidden transition-colors duration-500">
+      <header className="relative min-h-screen pt-40 md:pt-60 pb-20 flex items-center justify-center overflow-hidden">
+        {/* Luces de fondo (Blur) */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 dark:bg-purple-600/20 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[100px]"></div>
         
         <div className="absolute inset-0 z-0">
            <img 
             src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2000&auto=format&fit=crop" 
-            alt="Arquitectura Minimalista" 
-            className="w-full h-full object-cover transition-all duration-700 opacity-20 dark:grayscale dark:opacity-40"
+            alt="Arquitectura" 
+            className="w-full h-full object-cover opacity-20 dark:grayscale dark:opacity-40"
           /> 
           <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-[#050505] dark:via-transparent dark:to-[#050505] opacity-60 dark:opacity-100"></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10 text-center pb-12">
-          <p className="text-orange-500 dark:text-orange-400 font-bold tracking-[0.3em] uppercase mb-6 animate-fade-in-up drop-shadow-sm">
+          <p className="text-orange-500 dark:text-orange-400 font-bold tracking-[0.3em] uppercase mb-6 drop-shadow-sm">
             {t('hero.pre')}
           </p>
           <h1 className="text-gray-900 dark:text-white text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-8 drop-shadow-lg">
-            {t('hero.title1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500">{t('hero.title2')}</span>.<br />
+            {t('hero.title1')} <span className="text-gradient">{t('hero.title2')}</span>.<br />
             {t('hero.title3')} <span className="text-gray-400 dark:text-neutral-400">{t('hero.title4')}</span>.
           </h1>
-          <p className="max-w-2xl mx-auto text-gray-700 dark:text-neutral-300 font-medium text-lg md:text-xl mb-12 leading-relaxed drop-shadow-md">
+          
+          <p className="max-w-2xl mx-auto text-gray-700 dark:text-neutral-300 font-medium text-lg md:text-xl mb-12 leading-relaxed">
             {t('hero.desc')}
           </p>
+
           <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <button 
-              onClick={() => scrollToSection('modelos')}
-              className="group px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-bold uppercase tracking-wider hover:bg-orange-600 dark:hover:bg-neutral-200 transition-all flex items-center gap-2 shadow-xl rounded-sm"
-            >
+            <button onClick={() => scrollToSection('modelos')} className="btn-primary">
               {t('hero.cta1')}
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
@@ -76,7 +76,7 @@ const HabitariaLanding: React.FC = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 dark:text-neutral-500">
+         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 dark:text-neutral-500">
           <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-orange-500 to-transparent"></div>
         </div>
       </header>
