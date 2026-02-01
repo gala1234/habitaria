@@ -1,0 +1,297 @@
+import React, { useState, useEffect } from 'react';
+import { Box, Layers, Zap, Instagram, Linkedin, Mail, Globe, Compass, HardHat, Feather, ShieldCheck, Clock, MapPin, Calendar, ArrowRight } from 'lucide-react';
+
+const translations = {
+  es: {
+    nav: { phil: "Filosofía", models: "Modelos", home: "Inicio" },
+    philosophy: {
+      heroTitle: "Filosofía Habitaria",
+      heroSubtitle: "No diseñamos para el próximo año, sino para la próxima generación.",
+      manifesto: "Manifiesto",
+      manifestoTitle: "Diseño Eterno. Calidad Robusta.",
+      manifestoText: "En Habitaria, definimos el rigor de la ingeniería civil aplicado al detalle arquitectónico. Entendemos la construcción no solo como la ejecución de un plano, sino como la creación de un legado tangible. Cada estructura es una declaración de principios: solidez real, honestidad de materiales y una paz estética que solo la permanencia puede otorgar.",
+      pillars: {
+        p1: "Ingeniería de Rigor", d1: "Nuestros cimientos nacen del estudio preciso del plano. Ejecutamos con la exactitud que exige la ingeniería civil.",
+        p2: "Honestidad Material", d2: "Utilizamos materiales nobles: concreto, acero y maderas que no simulan ser otra cosa. Belleza real.",
+        p3: "Permanencia Ética", d3: "Minimizamos el mantenimiento futuro mediante una ejecución impecable desde el primer día."
+      },
+      cubeTitle: "La Geometría del Éxito",
+      cubeText: "Nuestro isotipo, el cubo isométrico, representa la intersección perfecta entre espacio, masa y luz. Es el bloque primordial de la construcción, símbolo de estabilidad y dimensión modular.",
+      materialsTitle: "Materia Prima",
+      materialsSubtitle: "Sustancia y Verdad",
+      process: "Nuestro Proceso",
+      process1: "Análisis del Terreno",
+      process2: "Ingeniería de Detalle",
+      process3: "Ejecución Robusta"
+    },
+    footer: {
+      talk: "Hablemos", future: "de futuro.", desc: "¿Listo para construir tu refugio?",
+      form: { name: "Nombre", interest: "Interés", msg: "Mensaje", btn: "Enviar Mensaje" },
+      cols: { brand: "Marca", store: "Tienda Modular", info: "Conocimiento", legal: "Legal" },
+      links: { all: "Ver Modelos", cust: "Personalizar", blog: "Blog", faq: "FAQ", priv: "Privacidad", term: "Términos" }
+    }
+  },
+  en: {
+    nav: { phil: "Philosophy", models: "Models", home: "Home" },
+    philosophy: {
+      heroTitle: "Habitaria Philosophy",
+      heroSubtitle: "We don't design for the next year, but for the next generation.",
+      manifesto: "Manifesto",
+      manifestoTitle: "Eternal Design. Robust Quality.",
+      manifestoText: "At Habitaria, we define civil engineering rigor applied to architectural detail. We understand construction not just as executing a plan, but as creating a tangible legacy.",
+      pillars: {
+        p1: "Rigor Engineering", d1: "Our foundations are born from precise plan study. We execute with the exactness that civil engineering demands.",
+        p2: "Material Honesty", d2: "We use noble materials: concrete, steel, and woods that don't pretend to be something else.",
+        p3: "Ethical Permanence", d3: "We minimize future maintenance through flawless execution from day one."
+      },
+      cubeTitle: "The Geometry of Success",
+      cubeText: "Our isotype, the isometric cube, represents the perfect intersection between space, mass, and light.",
+      materialsTitle: "Raw Material",
+      materialsSubtitle: "Substance and Truth",
+      process: "Our Process",
+      process1: "Site Analysis",
+      process2: "Detail Engineering",
+      process3: "Robust Execution"
+    },
+    footer: {
+      talk: "Let's talk", future: "about future.", desc: "Ready to build your sanctuary?",
+      form: { name: "Name", interest: "Interest", msg: "Message", btn: "Send Message" },
+      cols: { brand: "Brand", store: "Store", info: "Info", legal: "Legal" },
+      links: { all: "View Models", cust: "Customize", blog: "Blog", faq: "FAQ", priv: "Privacy", term: "Terms" }
+    }
+  }
+};
+
+// --- COMPONENTE FOOTER (REUTILIZADO DE LA LANDING) ---
+const Footer = ({ lang }) => {
+  const t = translations[lang];
+  return (
+    <footer className="pt-24 bg-gray-100 dark:bg-[#020202] border-t border-gray-200 dark:border-white/10 transition-colors duration-500">
+      <div className="container mx-auto px-6 mb-20">
+        <div className="grid md:grid-cols-2 gap-16">
+          <div>
+            <h2 className="text-5xl md:text-7xl font-bold uppercase mb-8 text-gray-900 dark:text-white">
+              {t.footer.talk}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">{t.footer.future}</span>
+            </h2>
+            <p className="text-gray-600 dark:text-neutral-400 text-lg max-w-md mb-12">
+              {t.footer.desc}
+            </p>
+            <div className="flex flex-col gap-6 text-gray-800 dark:text-white mb-10">
+              <a href="mailto:contacto@habitaria.com" className="flex items-center gap-4 text-xl hover:text-orange-500 transition-colors">
+                <Mail /> contacto@habitaria.com
+              </a>
+            </div>
+          </div>
+          <form className="bg-white dark:bg-[#0a0a0a] p-8 md:p-12 rounded-2xl border border-gray-200 dark:border-white/5 shadow-xl dark:shadow-2xl">
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm uppercase tracking-wider text-gray-500 dark:text-neutral-500 mb-2">{t.footer.form.name}</label>
+                <input type="text" className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 text-gray-900 dark:text-white focus:outline-none focus:border-orange-500 transition-colors rounded-lg" />
+              </div>
+              <div>
+                <label className="block text-sm uppercase tracking-wider text-gray-500 dark:text-neutral-500 mb-2">{t.footer.form.interest}</label>
+                <select className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 text-gray-900 dark:text-white focus:outline-none focus:border-orange-500 transition-colors rounded-lg">
+                  <option>Modelo Modular S</option>
+                  <option>Modelo Modular M</option>
+                  <option>Modelo Modular L</option>
+                  <option>Proyecto a Medida</option>
+                </select>
+              </div>
+              <button className="w-full bg-gradient-to-r from-orange-500 to-purple-600 text-white font-bold uppercase tracking-wider py-5 rounded-lg hover:shadow-lg hover:shadow-orange-500/20 transition-all transform hover:-translate-y-1">
+                {t.footer.form.btn}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="border-t border-gray-200 dark:border-white/5 bg-gray-200 dark:bg-[#080808] pt-16 pb-8 transition-colors duration-500">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-purple-600 rounded flex items-center justify-center transform rotate-45">
+                  <div className="w-3 h-3 bg-gray-200 dark:bg-[#080808]" />
+                </div>
+                <span className="text-xl font-bold tracking-widest uppercase text-gray-900 dark:text-white">Habitaria</span>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"><Instagram size={18} /></div>
+                <div className="w-10 h-10 border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"><Linkedin size={18} /></div>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.store}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors font-semibold">{t.footer.links.all}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model S</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model M</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model L</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.info}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.blog}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.faq}</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.legal}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.priv}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.term}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-300 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 dark:text-neutral-600 text-xs">
+            <p>© 2024 HABITARIA ARQUITECTURA S.L.</p>
+            <div className="flex items-center gap-2 mt-2 md:mt-0"><Globe size={14} /><span>{lang.toUpperCase()}</span></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+// --- PÁGINA PRINCIPAL FILOSOFÍA ---
+const App = () => {
+  const [lang, setLang] = useState('es');
+  const [theme, setTheme] = useState('dark');
+  const t = translations[lang];
+
+  return (
+    <div className={`${theme === 'dark' ? 'dark' : ''} selection:bg-orange-500 selection:text-white`}>
+      <div className="min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500 font-sans text-gray-900 dark:text-white overflow-x-hidden">
+        
+        <main>
+          {/* Section 1: Hero */}
+          <section className="relative pt-48 pb-32 flex items-center justify-center overflow-hidden">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.03] dark:opacity-[0.02] pointer-events-none w-full text-center">
+                <h2 className="text-[20vw] font-black uppercase leading-none">LEGACY</h2>
+             </div>
+             <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-purple-600 rounded flex items-center justify-center transform rotate-45 mx-auto mb-10 shadow-xl">
+                  <div className="w-6 h-6 bg-white dark:bg-[#050505]" />
+                </div>
+                <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+                   {t.philosophy.heroTitle}
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-500 dark:text-neutral-400 font-medium leading-relaxed max-w-2xl mx-auto italic">
+                   "{t.philosophy.heroSubtitle}"
+                </p>
+             </div>
+          </section>
+
+          {/* Section 2: El Manifiesto */}
+          <section className="py-24 bg-gray-50 dark:bg-[#080808] transition-colors relative border-y border-gray-100 dark:border-white/5">
+            <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+               <div className="order-2 md:order-1">
+                  <div className="relative">
+                    <div className="absolute -top-10 left-0 w-48 h-48 bg-purple-600/10 rounded-full blur-[80px] animate-pulse"></div>
+                    <img 
+                      src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=1200&auto=format&fit=crop" 
+                      className="rounded-[2rem] shadow-2xl grayscale transition-all duration-700 hover:grayscale-0 relative z-10 w-full aspect-[4/3] object-cover" 
+                      alt="Concreto Habitaria" 
+                    />
+                  </div>
+               </div>
+               <div className="order-1 md:order-2">
+                  <span className="text-orange-500 font-black uppercase tracking-widest text-xs mb-4 inline-block">{t.philosophy.manifesto}</span>
+                  <h2 className="text-4xl md:text-6xl font-black uppercase leading-none mb-8">
+                    Diseño Eterno. <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">
+                      Calidad Robusta.
+                    </span>
+                  </h2>
+                  <p className="text-lg text-gray-600 dark:text-neutral-400 leading-relaxed mb-6">
+                    {t.philosophy.manifestoText}
+                  </p>
+               </div>
+            </div>
+          </section>
+
+          {/* Section 3: Pilares */}
+          <section className="py-32 relative bg-white dark:bg-[#050505]">
+             <div className="container mx-auto px-6">
+                <div className="grid md:grid-cols-3 gap-8">
+                   {[
+                     { icon: <ShieldCheck size={32} />, title: t.philosophy.pillars.p1, desc: t.philosophy.pillars.d1 },
+                     { icon: <Feather size={32} />, title: t.philosophy.pillars.p2, desc: t.philosophy.pillars.d2 },
+                     { icon: <Clock size={32} />, title: t.philosophy.pillars.p3, desc: t.philosophy.pillars.d3 }
+                   ].map((pillar, i) => (
+                     <div key={i} className="p-10 lg:p-12 bg-gray-50 dark:bg-[#0a0a0a] rounded-[2rem] border border-gray-100 dark:border-white/5 transition-all hover:-translate-y-2 group">
+                        <div className="text-orange-500 mb-8 transform transition-transform group-hover:scale-110">{pillar.icon}</div>
+                        <h4 className="text-2xl font-black uppercase mb-4 text-gray-900 dark:text-white">{pillar.title}</h4>
+                        <p className="text-gray-500 dark:text-neutral-400 text-sm leading-relaxed">{pillar.desc}</p>
+                     </div>
+                   ))}
+                </div>
+             </div>
+          </section>
+
+          {/* Section 4: Materia Prima con Textura Visual real */}
+          <section className="py-32 relative overflow-hidden bg-black text-white">
+             {/* BACKGROUND CON TEXTURA DE CONCRETO REAL */}
+             <div className="absolute inset-0 z-0">
+                <img 
+                  src="https://images.unsplash.com/photo-1590644365607-1c5a519a7a37?q=80&w=2000&auto=format&fit=crop" 
+                  className="w-full h-full object-cover opacity-30 mix-blend-luminosity transition-opacity duration-1000 group-hover:opacity-40" 
+                  alt="" // Eliminado el texto descriptivo
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent"></div>
+             </div>
+             
+             <div className="container mx-auto px-6 relative z-10">
+                <div className="max-w-2xl">
+                    <h2 className="text-4xl md:text-7xl font-black uppercase mb-6 leading-tight">{t.philosophy.materialsTitle}</h2>
+                    <h3 className="text-2xl text-orange-500 font-bold uppercase tracking-widest mb-10">{t.philosophy.materialsSubtitle}</h3>
+                    <p className="text-xl text-neutral-300 leading-relaxed mb-12">
+                      No escondemos la estructura. La celebramos. El concreto visto habla de honestidad. El acero de fuerza. La madera de vida. En Habitaria, el material es el mensaje.
+                    </p>
+                    <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-12">
+                      <div><p className="text-white font-bold text-3xl">X</p><p className="text-[10px] uppercase tracking-widest text-neutral-500">Masa</p></div>
+                      <div><p className="text-white font-bold text-3xl">Y</p><p className="text-[10px] uppercase tracking-widest text-neutral-500">Luz</p></div>
+                      <div><p className="text-white font-bold text-3xl">Z</p><p className="text-[10px] uppercase tracking-widest text-neutral-500">Espacio</p></div>
+                    </div>
+                </div>
+             </div>
+          </section>
+
+          {/* Section 5: El Proceso */}
+          <section className="py-32 bg-white dark:bg-[#050505] transition-colors">
+             <div className="container mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                   <h2 className="text-4xl md:text-7xl font-black uppercase max-w-xl leading-none">
+                     {t.philosophy.process}
+                   </h2>
+                   <div className="w-24 h-1 bg-orange-500 hidden md:block mb-4"></div>
+                </div>
+                <div className="grid md:grid-cols-3 gap-12">
+                   {[
+                     { step: "01", title: t.philosophy.process1, icon: <Compass size={32}/> },
+                     { step: "02", title: t.philosophy.process2, icon: <Layers size={32}/> },
+                     { step: "03", title: t.philosophy.process3, icon: <HardHat size={32}/> }
+                   ].map((step, i) => (
+                     <div key={i} className="relative pt-12 border-t border-gray-200 dark:border-white/10 group">
+                        <span className="absolute top-4 left-0 text-xs font-black text-orange-500 tracking-[0.3em]">{step.step}</span>
+                        <div className="mb-6 opacity-40 group-hover:opacity-100 transition-opacity text-gray-900 dark:text-white">{step.icon}</div>
+                        <h4 className="text-2xl font-black uppercase mb-4 text-gray-900 dark:text-white">{step.title}</h4>
+                        <div className="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 flex items-center justify-center transition-all group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 cursor-pointer">
+                           <ArrowRight size={16} />
+                        </div>
+                     </div>
+                   ))}
+                </div>
+             </div>
+          </section>
+        </main>
+
+        <Footer lang={lang} />
+      </div>
+    </div>
+  );
+};
+
+export default App;
+

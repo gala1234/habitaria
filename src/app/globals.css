@@ -1,18 +1,135 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff; /* White Technical */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    /* Habitaria Colors */
+    --habitaria-orange-400: #fb923c;
+    --habitaria-orange-500: #f97316;
+    --habitaria-orange-600: #ea580c;
+    --habitaria-pink-500: #ec4899;
+    --habitaria-purple-500: #a855f7;
+    --habitaria-purple-600: #9333ea;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
 
-@theme inline {
-  --color-tangerine: #FF934B; /* Primary */
-  --color-coffee: #120605;    /* Secondary / Texto */
-  --color-purple: #5A3F84;    /* Tertiary */
-  --font-sans: sans-serif;
-}
+@layer components {
+  .nav-link {
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .nav-link:hover {
+    color: var(--habitaria-orange-500);
+  }
+  .dark .nav-link:hover {
+    color: white;
+  }
 
-body {
-  background: var(--background);
-  color: var(--color-coffee);
-  font-family: var(--font-sans);
+  .btn-primary {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgb(17 24 39);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: rgb(255 255 255);
+    border-radius: 0.125rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .dark .btn-primary {
+    background-color: rgb(255 255 255);
+    color: rgb(0 0 0);
+  }
+  .btn-primary:hover {
+    background-color: var(--habitaria-orange-600);
+  }
+  .dark .btn-primary:hover {
+    background-color: rgb(229 231 235);
+  }
+
+  .text-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, var(--habitaria-orange-400), var(--habitaria-pink-500), var(--habitaria-purple-500));
+  }
+
+  .card-modular {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    border-width: 1px;
+    border-color: rgb(229 231 235);
+    background-color: rgb(255 255 255);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  @media (min-width: 1024px) {
+    .card-modular {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .dark .card-modular {
+    border-color: rgb(255 255 255 / 0.05);
+    background-color: #0a0a0a;
+  }
 }

@@ -1,0 +1,299 @@
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, MapPin, Instagram, Linkedin, Globe, Send, Check, Sun, Moon, MessageSquare, Clock, Building } from 'lucide-react';
+
+// --- DICCIONARIO DE TRADUCCIONES ---
+const translations = {
+  es: {
+    nav: { phil: "Filosofía", models: "Modelos", home: "Inicio", contact: "Contacto" },
+    contact: {
+      heroTitle: "Hablemos de tu Proyecto",
+      heroSubtitle: "Transformamos visiones arquitectónicas en realidades tangibles. Nuestro equipo técnico está listo para asesorarte.",
+      form: {
+        title: "Enviar una consulta",
+        name: "Nombre completo",
+        email: "Correo electrónico",
+        phone: "Teléfono",
+        interest: "Interés",
+        interestOptions: ["Modelo Modular S", "Modelo Modular M", "Modelo Modular L", "Proyecto a Medida", "Contract / Interiorismo"],
+        message: "Cuéntanos sobre tu idea...",
+        btn: "Enviar Mensaje",
+        success: "¡Mensaje enviado con éxito!"
+      },
+      info: {
+        title: "Sede Central",
+        office: "Estudio Principal",
+        address: "Calle de los Arces, Nº 7. Alpedrete, Madrid.",
+        city: "Alpedrete, Madrid",
+        hours: "Lunes a Viernes: 09:00 — 18:00",
+        social: "Síguenos"
+      }
+    },
+    footer: {
+      cols: { brand: "Marca", store: "Tienda Modular", info: "Conocimiento", legal: "Legal" },
+      links: { all: "Ver Modelos", cust: "Personalizar", blog: "Blog", faq: "FAQ", priv: "Privacidad", term: "Términos" }
+    }
+  },
+  en: {
+    nav: { phil: "Philosophy", models: "Models", home: "Home", contact: "Contact" },
+    contact: {
+      heroTitle: "Let's Talk About Your Project",
+      heroSubtitle: "We transform architectural visions into tangible realities. Our technical team is ready to advise you.",
+      form: {
+        title: "Send an inquiry",
+        name: "Full Name",
+        email: "Email Address",
+        phone: "Phone Number",
+        interest: "Interest",
+        interestOptions: ["Modular Model S", "Modular Model M", "Modular Model L", "Custom Project", "Contract / Interior Design"],
+        message: "Tell us about your idea...",
+        btn: "Send Message",
+        success: "Message sent successfully!"
+      },
+      info: {
+        title: "Headquarters",
+        office: "Main Studio",
+        address: "7 Arces St. Alpedrete, Madrid.",
+        city: "Alpedrete, Madrid",
+        hours: "Monday to Friday: 09:00 — 18:00",
+        social: "Follow us"
+      }
+    },
+    footer: {
+      cols: { brand: "Brand", store: "Store", info: "Info", legal: "Legal" },
+      links: { all: "View Models", cust: "Customize", blog: "Blog", faq: "FAQ", priv: "Privacy", term: "Terms" }
+    }
+  }
+};
+
+// --- COMPONENTE FOOTER SIMPLIFICADO (Sin Formulario) ---
+const Footer = ({ lang }) => {
+  const t = translations[lang];
+  return (
+    <footer className="bg-gray-100 dark:bg-[#020202] border-t border-gray-200 dark:border-white/10 transition-colors duration-500">
+      <div className="bg-gray-200 dark:bg-[#080808] py-16 transition-colors duration-500">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-purple-600 rounded flex items-center justify-center transform rotate-45">
+                  <div className="w-3 h-3 bg-gray-200 dark:bg-[#080808]" />
+                </div>
+                <span className="text-xl font-bold tracking-widest uppercase text-gray-900 dark:text-white">Habitaria</span>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"><Instagram size={18} /></div>
+                <div className="w-10 h-10 border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"><Linkedin size={18} /></div>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.store}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors font-semibold">{t.footer.links.all}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model S</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model M</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">Model L</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.info}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.blog}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.faq}</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-wider mb-6">{t.footer.cols.legal}</h4>
+              <ul className="space-y-4 text-sm text-gray-600 dark:text-neutral-400">
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.priv}</a></li>
+                <li><a href="#" className="hover:text-orange-500 transition-colors">{t.footer.links.term}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-300 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 dark:text-neutral-600 text-[10px] font-bold uppercase tracking-[0.2em]">
+            <p>© 2024 HABITARIA ARQUITECTURA S.L.</p>
+            <div className="flex items-center gap-2 mt-2 md:mt-0"><Globe size={14} /><span>{lang.toUpperCase()}</span></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+// --- PÁGINA DE CONTACTO ---
+const App = () => {
+  const [lang, setLang] = useState('es');
+  const [theme, setTheme] = useState('dark');
+  const [submitted, setSubmitted] = useState(false);
+  const t = translations[lang];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 5000);
+  };
+
+  return (
+    <div className={`${theme === 'dark' ? 'dark' : ''} selection:bg-orange-500 selection:text-white transition-colors duration-500`}>
+      {/* Botón flotante para previsualización (el Navbar irá en el layout real) */}
+      <button 
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className="fixed bottom-8 left-8 z-[100] p-4 bg-orange-500 text-white rounded-full shadow-2xl hover:scale-110 transition-transform md:hidden"
+      >
+        {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+      </button>
+
+      <div className="min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500 font-sans text-gray-900 dark:text-white overflow-x-hidden">
+        
+        <main>
+          {/* Section 1: Hero de Contacto */}
+          <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 flex items-center justify-center overflow-hidden">
+             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
+             <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                <p className="text-orange-500 font-black uppercase tracking-[0.3em] text-[10px] md:text-xs mb-6">{t.nav.contact}</p>
+                <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[1.1] md:leading-[0.85] mb-8">
+                   {t.contact.heroTitle}
+                </h1>
+                <p className="text-lg md:text-2xl text-gray-500 dark:text-neutral-400 font-medium leading-relaxed max-w-2xl mx-auto italic">
+                   "{t.contact.heroSubtitle}"
+                </p>
+             </div>
+          </section>
+
+          {/* Section 2: Contact Grid (Form & Info) */}
+          <section className="py-20 bg-gray-50 dark:bg-[#080808] transition-colors border-y border-gray-100 dark:border-white/5">
+             <div className="container mx-auto px-6">
+                <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
+                   
+                   {/* Columna de Información */}
+                   <div className="lg:col-span-1 space-y-12">
+                      <div>
+                         <h3 className="text-2xl font-black uppercase mb-8 flex items-center gap-3">
+                            <Building className="text-orange-500" size={24}/>
+                            {t.contact.info.title}
+                         </h3>
+                         <div className="space-y-6">
+                            <div className="flex gap-4 group">
+                               <div className="w-12 h-12 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 rounded-xl flex items-center justify-center text-orange-500 shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                                  <MapPin size={20}/>
+                               </div>
+                               <div>
+                                  <p className="text-xs uppercase text-gray-400 font-bold tracking-widest mb-1">Dirección</p>
+                                  <p className="text-sm md:text-base font-bold text-gray-700 dark:text-neutral-300">{t.contact.info.address}</p>
+                               </div>
+                            </div>
+                            <div className="flex gap-4 group">
+                               <div className="w-12 h-12 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 rounded-xl flex items-center justify-center text-orange-500 shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                                  <Phone size={20}/>
+                               </div>
+                               <div>
+                                  <p className="text-xs uppercase text-gray-400 font-bold tracking-widest mb-1">Atención Telefónica</p>
+                                  <p className="text-sm md:text-base font-bold text-gray-700 dark:text-neutral-300">+34 910 000 000</p>
+                               </div>
+                            </div>
+                            <div className="flex gap-4 group">
+                               <div className="w-12 h-12 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 rounded-xl flex items-center justify-center text-orange-500 shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                                  <Clock size={20}/>
+                               </div>
+                               <div>
+                                  <p className="text-xs uppercase text-gray-400 font-bold tracking-widest mb-1">Horario</p>
+                                  <p className="text-sm md:text-base font-bold text-gray-700 dark:text-neutral-300">{t.contact.info.hours}</p>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="pt-8 border-t border-gray-200 dark:border-white/10">
+                         <h4 className="text-xs uppercase text-gray-400 font-black tracking-widest mb-6">{t.contact.info.social}</h4>
+                         <div className="flex gap-4">
+                            <a href="#" className="w-12 h-12 bg-gray-900 dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-500 hover:text-white transition-all">
+                               <Instagram size={20}/>
+                            </a>
+                            <a href="#" className="w-12 h-12 bg-gray-900 dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-500 hover:text-white transition-all">
+                               <Linkedin size={20}/>
+                            </a>
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Columna de Formulario */}
+                   <div className="lg:col-span-2">
+                      <div className="bg-white dark:bg-[#0a0a0a] p-8 md:p-12 rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-2xl">
+                         <h3 className="text-2xl font-black uppercase mb-8 flex items-center gap-3">
+                            <MessageSquare className="text-orange-500" size={24}/>
+                            {t.contact.form.title}
+                         </h3>
+                         
+                         <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid md:grid-cols-2 gap-6">
+                               <div className="space-y-2">
+                                  <label className="text-[10px] uppercase text-gray-400 font-bold tracking-widest ml-1">{t.contact.form.name}</label>
+                                  <input required type="text" className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 rounded-xl text-gray-900 dark:text-white focus:border-orange-500 outline-none transition-colors shadow-sm" />
+                               </div>
+                               <div className="space-y-2">
+                                  <label className="text-[10px] uppercase text-gray-400 font-bold tracking-widest ml-1">{t.contact.form.email}</label>
+                                  <input required type="email" className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 rounded-xl text-gray-900 dark:text-white focus:border-orange-500 outline-none transition-colors shadow-sm" />
+                               </div>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-6">
+                               <div className="space-y-2">
+                                  <label className="text-[10px] uppercase text-gray-400 font-bold tracking-widest ml-1">{t.contact.form.phone}</label>
+                                  <input type="tel" className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 rounded-xl text-gray-900 dark:text-white focus:border-orange-500 outline-none transition-colors shadow-sm" />
+                               </div>
+                               <div className="space-y-2">
+                                  <label className="text-[10px] uppercase text-gray-400 font-bold tracking-widest ml-1">{t.contact.form.interest}</label>
+                                  <select className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 rounded-xl text-gray-900 dark:text-white focus:border-orange-500 outline-none transition-colors shadow-sm appearance-none">
+                                     {t.contact.form.interestOptions.map((opt, i) => (
+                                        <option key={i}>{opt}</option>
+                                     ))}
+                                  </select>
+                               </div>
+                            </div>
+                            <div className="space-y-2">
+                               <label className="text-[10px] uppercase text-gray-400 font-bold tracking-widest ml-1">{t.contact.form.message}</label>
+                               <textarea required rows="5" className="w-full bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/10 p-4 rounded-xl text-gray-900 dark:text-white focus:border-orange-500 outline-none transition-colors shadow-sm"></textarea>
+                            </div>
+                            
+                            <button 
+                               type="submit" 
+                               disabled={submitted}
+                               className={`w-full h-16 rounded-2xl font-black uppercase text-xs tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-xl ${submitted ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-500 to-purple-600 text-white hover:scale-[1.02] hover:shadow-orange-500/20'}`}
+                            >
+                               {submitted ? <><Check size={20}/> {t.contact.form.success}</> : <><Send size={18}/> {t.contact.form.btn}</>}
+                            </button>
+                         </form>
+                      </div>
+                   </div>
+
+                </div>
+             </div>
+          </section>
+
+          {/* Section 3: Mapa Conceptual de Ubicación Real */}
+          <section className="h-[400px] md:h-[600px] relative bg-black overflow-hidden flex items-center justify-center">
+             {/* Textura de concreto de fondo coherente con la marca */}
+             <div className="absolute inset-0 opacity-40">
+                <img src="https://images.unsplash.com/photo-1590644365607-1c5a519a7a37?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover grayscale" alt="Map Texture" />
+             </div>
+             {/* Gradiente radial que enfoca la ubicación */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
+             
+             <div className="relative z-10 text-center">
+                <div className="inline-block p-4 bg-orange-500 text-white rounded-full animate-pulse shadow-2xl shadow-orange-500/50 mb-6">
+                   <MapPin size={40}/>
+                </div>
+                <h3 className="text-3xl md:text-5xl font-black uppercase text-white tracking-widest">{t.contact.info.office}</h3>
+                <p className="text-orange-500 font-bold uppercase tracking-[0.3em] mt-2">{t.contact.info.city}</p>
+                <p className="text-neutral-500 text-xs mt-4 max-w-xs mx-auto">{t.contact.info.address}</p>
+             </div>
+          </section>
+
+        </main>
+
+        <Footer lang={lang} />
+      </div>
+    </div>
+  );
+};
+
+export default App;
+
